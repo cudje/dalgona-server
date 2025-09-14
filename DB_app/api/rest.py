@@ -11,7 +11,7 @@ from DB_app.db.session import async_session
 from DB_app.db.models import UserORM, StageORM, UserStageProgressORM, RunLogORM
 
 rest_router = APIRouter()
-logger = logging.getLogger("dalgona.rest")  # 원하는 이름
+log = logging.getLogger(__name__)
 
 class CreateUserReq(BaseModel):
     user_id: str
@@ -20,7 +20,7 @@ class CreateUserReq(BaseModel):
 @rest_router.post("/users")
 async def create_user(req: CreateUserReq, request: Request):
     client_ip = request.client.host if request.client else "unknown"
-    logger.info("REGISTER request: user_id=%s from=%s", req.user_id, client_ip)
+    log.info("[AI][REST] ⇐ user_id=%s from=%s", req.user_id, client_ip)
 
     created = False
     async with async_session() as s, s.begin():
@@ -311,10 +311,10 @@ async def post_run_log(payload: RunLogIn):
     except ValidationError as e:
         raise HTTPException(status_code=400, detail=f"invalid payload: {e.errors()}")
     except SQLAlchemyError as e:
-        logger.exception("[REST][DB] error")
+        log.exception("[REST][DB] error")
         raise HTTPException(status_code=500, detail="db_error")
     except HTTPException:
         raise
     except Exception as e:
-        logger.exception("[REST] unexpected")
+        log.exception("[REST] unexpected")
         raise HTTPException(status_code=500, detail=str(e))
