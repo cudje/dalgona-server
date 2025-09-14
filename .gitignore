@@ -1,0 +1,7 @@
+AI_app/__pycache__/
+AI_app/api/__pycache__/
+AI_app/llm/__pycache__/
+certs/
+DB_app/__pycache__/
+DB_app/api/__pycache__/
+DB_app/db/__pycache__/

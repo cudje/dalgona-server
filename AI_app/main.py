@@ -1,20 +1,32 @@
 # ai_app/main.py
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from AI_app.api.websocket import ws_router
+#from AI_app.api.websocket import ws_router
+from AI_app.api.rest import rest_router
 from AI_app.config import settings
+from logging.config import dictConfig
+
+dictConfig({
+    "version": 1,
+    "disable_existing_loggers": False,     # 기존 uvicorn 로거 유지
+    "formatters": {
+        "plain": {"format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s"},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": "plain"},
+    },
+    "loggers": {
+        "": {"handlers": ["console"], "level": "INFO"},
+        "uvicorn": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "uvicorn.error": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "uvicorn.access": {"handlers": ["console"], "level": "INFO", "propagate": False},
+    },
+})
 
 def create_app() -> FastAPI:
     app = FastAPI()
-    app.include_router(ws_router)
+    #app.include_router(ws_router)
+    app.include_router(rest_router)
 
-    # (옵션) CORS
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
     return app
 
 app = create_app()

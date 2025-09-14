@@ -45,5 +45,4 @@ class Settings(BaseSettings):
 def get_settings() -> Settings:
     return Settings()
 
-# 전역 인스턴스로 바로 써도 되고,
 settings = get_settings()

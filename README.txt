@@ -15,7 +15,7 @@ accelerate
 
 (위 환경을 설치한 가상환경에 접속하여 server folder에서 아래 명령어를 입력하면 됩니다.)
 
-uvicorn AI_app.main:app --host 0.0.0.0 --port 8002
+uvicorn AI_app.main:app --host 0.0.0.0 --port 8002 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
 ==========================================================
 
 
@@ -38,7 +38,7 @@ choco install mkcert -y
 mkcert -install
 mkcert <서버IP>
 
-uvicorn DB_app.main:app --host 0.0.0.0 --port 8001 --ssl-certfile "certs\192.168.179.56.pem" --ssl-keyfile "certs\192.168.179.56-key.pem
+uvicorn DB_app.main:app --host 0.0.0.0 --port 8001 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
 ==========================================================
 
 클라이언트에서 서버 접속 ip를 192.168.178.134로 설정해 놓았기에,

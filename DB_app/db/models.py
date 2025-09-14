@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import (
-    String, Integer, BigInteger, Boolean, DateTime, ForeignKey, MetaData
+    String, Integer, BigInteger, Boolean, DateTime, ForeignKey, MetaData, text
 )
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
@@ -20,6 +20,12 @@ class UserORM(Base):
 
     user_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    
+    profile_image: Mapped[int] = mapped_column(
+        Integer,
+        nullable=False,
+        server_default=text("0"),   # 기존 행에도 0으로 채워지도록
+    )
 
     progresses = relationship("UserStageProgressORM", back_populates="user")
 
