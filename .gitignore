@@ -5,3 +5,7 @@ certs/
 DB_app/__pycache__/
 DB_app/api/__pycache__/
 DB_app/db/__pycache__/
+Merge_app/__pycache__/
+Merge_app/api/__pycache__/
+Merge_app/db/__pycache__/
+Merge_app/llm/__pycache__/

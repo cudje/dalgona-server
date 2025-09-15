@@ -1,4 +1,6 @@
 실행 방법
+uvicorn Merge_app.main:app --host 0.0.0.0 --port 25800 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
+
 
 <AI 서버>
 ==========================================================
