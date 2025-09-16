@@ -1,9 +1,26 @@
-실행 방법
-uvicorn Merge_app.main:app --host 0.0.0.0 --port 25800 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
+현재 가동중인 서버
+uvicorn Merge_app.main:app --host 0.0.0.0 --port 25800
+
+
+<<서버 실행 방법>>
+※ 클라이언트의 서버 연결 IP주소 또한 바꿔줘야 합니다.
+
+<공통>
+==========================================================
+1. Chocolatey를 설치합니다.
+
+2. certs 폴더에서 아래 명령어 3줄을 차례로 입력합니다.
+choco install mkcert -y
+mkcert -install
+mkcert <내 서버 IP>
+==========================================================
 
 
 <AI 서버>
 ==========================================================
+1. miniconda를 설치합니다.
+
+2. Anaconda Prompt를 실행하고 가상환경을 생성한 다음, 아래 모듈들을 설치합니다.
 [conda modules]
 fastapi
 pydantic
@@ -14,12 +31,10 @@ transformers
 uvicorn
 accelerate
 
+3. 위 환경을 설치한 가상환경에 접속하여 server folder에서 아래 명령어를 입력하면 됩니다.
 
-(위 환경을 설치한 가상환경에 접속하여 server folder에서 아래 명령어를 입력하면 됩니다.)
-
-uvicorn AI_app.main:app --host 0.0.0.0 --port 8002 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
+uvicorn AI_app.main:app --host 0.0.0.0 --port 8002 --ssl-certfile "certs\<내 서버 IP>.pem" --ssl-keyfile "certs\<내 서버 IP>-key.pem"
 ==========================================================
-
 
 
 <DB 서버>
@@ -27,6 +42,7 @@ uvicorn AI_app.main:app --host 0.0.0.0 --port 8002 --ssl-certfile "certs\192.168
 1. postgresql을 설치합니다.
 
 2. (모든 설정을 Default로 한 상태에서)
+SQL Shell (psql) 터미널을 열고 아래 명령어 3줄을 차례로 입력합니다.
 CREATE DATABASE dalgona_db; CREATE ROLE dalgona_user WITH LOGIN PASSWORD '0000';
 CREATE SCHEMA IF NOT EXISTS dalgona_game AUTHORIZATION dalgona_user;
 GRANT USAGE, CREATE ON SCHEMA dalgona_game TO dalgona_user;
@@ -34,14 +50,7 @@ GRANT USAGE, CREATE ON SCHEMA dalgona_game TO dalgona_user;
 3. psql -U postgres -d dalgona_db -f setup.sql
 (위 명령어를 통해 DB 테이블을 생성합니다.)
 
-4. Chocolatey 설치
-(server\certs 폴더에서)
-choco install mkcert -y
-mkcert -install
-mkcert <서버IP>
+4. 위 파이썬 가상환경에 접속하여 server folder에서 아래 명령어를 입력하면 됩니다.
 
-uvicorn DB_app.main:app --host 0.0.0.0 --port 8001 --ssl-certfile "certs\192.168.177.4.pem" --ssl-keyfile "certs\192.168.177.4-key.pem"
+uvicorn DB_app.main:app --host 0.0.0.0 --port 8001 --ssl-certfile "certs\<내 서버 IP>.pem" --ssl-keyfile "certs\<내 서버 IP>-key.pem"
 ==========================================================
-
-클라이언트에서 서버 접속 ip를 192.168.178.134로 설정해 놓았기에,
-서버 환경 구축에 어려움이 있을 수 있는 점 사과 말씀 드립니다.
