@@ -1,6 +1,6 @@
 현재 가동중인 서버
 uvicorn Merge_app.main:app --host 0.0.0.0 --port 25800
-
+ngrok http 25800 --domain=unvintaged-dakota-folksier.ngrok-free.app
 
 <<서버 실행 방법>>
 ※ 클라이언트의 서버 연결 IP주소 또한 바꿔줘야 합니다.
